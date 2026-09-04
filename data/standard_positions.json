@@ -1,0 +1,134 @@
+[
+  {
+    "id": "SP-1",
+    "category": "Rent Escalation",
+    "title": "Annual Rent Escalation Cap",
+    "summary": "Rent shall remain fixed for the initial 12 months. Any subsequent annual escalation shall not exceed 5.0% per annum or CPI-U (whichever is lower). Mid-term increases and landlord-discretionary market resets are prohibited.",
+    "standard_terms": "The base rent specified in the agreement shall remain fixed and unadjusted for a minimum period of twelve (12) consecutive months following the commencement date. Any subsequent annual escalation of rent shall be capped at a maximum of five percent (5.0%) per annum, or the percentage increase in the Consumer Price Index for All Urban Consumers (CPI-U), whichever is lower. Under no circumstances shall rent be subject to semi-annual or mid-term escalations, nor shall the landlord possess unilateral discretion to re-evaluate rent based on speculative prevailing market rates.",
+    "acceptable_range": "Rent fixed for first 12 months; annual escalation <= 5.0%; no discretionary market resets.",
+    "departure_indicators": [
+      "Annual escalation exceeding 5.0%",
+      "Escalation intervals shorter than 12 months (e.g. quarterly or semi-annual)",
+      "Uncapped CPI indexation",
+      "Landlord unilateral discretion to determine new rent rates",
+      "Compounding multiple escalation mechanisms"
+    ],
+    "silence_risk": "If rent escalation is omitted or unaddressed, the landlord may claim common-law rights to adjust rent periodically or claim open-ended price terms upon annual renewal.",
+    "standard_clause_text": "Base rent shall remain fixed for the initial twelve (12) months of the lease term. Commencing on the first anniversary of the commencement date and annually thereafter, base rent may increase by no more than five percent (5.0%) over the preceding year's base rent or the annual percentage change in CPI-U, whichever is lower."
+  },
+  {
+    "id": "SP-2",
+    "category": "Security Deposit",
+    "title": "Security Deposit Amount and Escrow Return",
+    "summary": "Security deposit shall not exceed two (2) months' base rent, must be maintained in a segregated interest-bearing escrow account with interest accruing to tenant, and must be fully refunded within thirty (30) days of lease expiration.",
+    "standard_terms": "The security deposit required under the lease shall not exceed the equivalent of two (2) months' base rent. The deposit must be deposited and held in an FDIC-insured, segregated interest-bearing escrow account, with accrued interest credited to the tenant. The landlord shall return the entire deposit (plus interest) within thirty (30) calendar days following lease expiration and surrender of the premises, subject only to itemized deductions for damages beyond reasonable wear and tear supported by written receipts.",
+    "acceptable_range": "Deposit <= 2 months' base rent; held in escrow; interest to tenant; refund timeline <= 30 days.",
+    "departure_indicators": [
+      "Deposit exceeding 2 months' rent (e.g., 3 to 6 months)",
+      "Commingling deposit with landlord operating or personal funds",
+      "No interest paid to tenant on escrow balance",
+      "Refund period exceeding 30 calendar days (e.g., 45 to 90 days)",
+      "Non-refundable deposit fees or discretionary deductions without itemized receipts"
+    ],
+    "silence_risk": "Silence regarding deposit custody and refund timeline allows landlords to commingle funds, delay return indefinitely, or impose arbitrary deduction standards.",
+    "standard_clause_text": "Tenant shall deliver a security deposit equal to two (2) months' base rent. Landlord shall hold the deposit in a segregated, interest-bearing escrow account with an FDIC-insured institution for Tenant's benefit. Within thirty (30) calendar days after lease termination and surrender of the premises, Landlord shall refund the deposit with accrued interest, less only documented, reasonable repair costs beyond ordinary wear and tear."
+  },
+  {
+    "id": "SP-3",
+    "category": "Notice Period",
+    "title": "Mutual Notice Period for Renewal and Termination",
+    "summary": "Mutual written notice of at least sixty (60) days is required prior to lease expiration for termination, non-renewal, or proposed modifications. Asymmetric notice requirements favoring the landlord are prohibited.",
+    "standard_terms": "Both landlord and tenant shall provide written notice of not less than sixty (60) calendar days prior to the expiration of the lease term to indicate intention to terminate, not renew, or modify the lease. Neither party shall be bound by unilateral auto-renewal clauses unless the landlord provides a written reminder notice at least sixty (60) days prior to the deadline. Notice obligations must be strictly reciprocal and symmetrical.",
+    "acceptable_range": "Mutual notice >= 60 days; symmetrical obligations for both parties.",
+    "departure_indicators": [
+      "Notice periods shorter than 60 days for landlord (e.g., 15 or 30 days)",
+      "Notice periods exceeding 60 days for tenant (e.g., 90 or 120 days)",
+      "Asymmetric notice timelines where landlord has shorter obligations than tenant",
+      "Automatic renewal with waiver of reminder notice"
+    ],
+    "silence_risk": "Silence on notice periods creates statutory month-to-month conversion ambiguity, sudden short-notice landlord vacatur demands, or un-negotiated automatic extensions.",
+    "standard_clause_text": "Either party may terminate or decline to renew this Lease at the conclusion of the Term by delivering written notice to the other party at least sixty (60) calendar days prior to the expiration date. In the absence of such mutual notice, the lease shall continue on a month-to-month basis under identical terms."
+  },
+  {
+    "id": "SP-4",
+    "category": "Maintenance and Repairs",
+    "title": "Structural, HVAC, and Capital Maintenance Allocation",
+    "summary": "Landlord is solely responsible for structural elements, roof, exterior walls, foundation, building utility systems (HVAC, plumbing, electrical), and common area maintenance exceeding $250. Tenant is only responsible for routine interior upkeep under $250.",
+    "standard_terms": "Landlord shall maintain, repair, and replace at landlord's sole cost and expense all structural components of the building (foundation, load-bearing walls, floors, roofs, exterior facades), all common areas, and all central building utility systems including HVAC, plumbing, electrical, and fire suppression systems. Tenant shall only be responsible for routine non-structural interior maintenance and minor repairs necessitated by tenant's ordinary use where individual repair costs do not exceed $250 per incident.",
+    "acceptable_range": "Landlord responsible for structural, roof, HVAC, common areas; tenant minor interior threshold <= $250.",
+    "departure_indicators": [
+      "Tenant obligated to maintain, repair, or replace roof, foundation, or exterior structure",
+      "Tenant held liable for major HVAC compressor overhauls or system replacements",
+      "Full triple-net (NNN) capital expenditure shifting onto tenant without amortization",
+      "Tenant deductible or repair threshold exceeding $250 for building systems"
+    ],
+    "silence_risk": "Silence regarding capital repairs exposes tenant to dispute over structural failures, roof leaks, or catastrophic HVAC breakdowns during occupancy.",
+    "standard_clause_text": "Landlord shall, at its sole cost and expense, keep and maintain in good order, condition, and repair the foundation, exterior walls, roof, structural components, common areas, and all HVAC, plumbing, and electrical systems servicing the Premises. Tenant shall be responsible only for ordinary interior housekeeping and minor routine repairs costing less than $250 per occurrence."
+  },
+  {
+    "id": "SP-5",
+    "category": "Subletting and Assignment",
+    "title": "Subletting and Assignment Rights with Reasonable Consent",
+    "summary": "Tenant retains the right to sublet or assign the premises to corporate affiliates without consent, and to qualified third parties subject to landlord's written consent, which shall not be unreasonably withheld, conditioned, or delayed beyond 14 days.",
+    "standard_terms": "Tenant shall have the unqualified right to assign the lease or sublet all or any portion of the premises to any parent company, subsidiary, affiliate, or successor entity resulting from merger or corporate reorganization without requiring landlord consent. For third-party assignments or subleases, landlord consent shall be required but shall not be unreasonably withheld, conditioned, or delayed. Landlord must respond within fourteen (14) calendar days of request; failure to respond within 14 days shall be deemed approval.",
+    "acceptable_range": "Affiliate assignments permitted without consent/fee; third-party sublet consent not unreasonably withheld/delayed (<= 14 days); no profit recapture > 50%.",
+    "departure_indicators": [
+      "Total prohibition on subletting or assignment under any circumstances",
+      "Landlord sole and absolute discretion to withhold consent",
+      "Assignment restrictions triggering default upon corporate merger or restructuring",
+      "Excessive administrative review fees (e.g. > $500) for sublet requests",
+      "Landlord right to terminate lease immediately upon tenant requesting sublease permission"
+    ],
+    "silence_risk": "Silence leaves subletting vulnerable to default statutory rules or common-law restrictions that permit landlords to reject transfers or terminate leases upon corporate restructuring.",
+    "standard_clause_text": "Tenant may assign this Lease or sublet the Premises to any affiliate, subsidiary, or entity acquiring substantially all of Tenant's assets without Landlord's consent. For third-party subleases, Landlord's prior written consent shall be required, which consent shall not be unreasonably withheld, conditioned, or delayed. Landlord shall respond in writing within fourteen (14) calendar days of receiving Tenant's request, failing which consent shall be deemed granted."
+  },
+  {
+    "id": "SP-6",
+    "category": "Lock-in Period",
+    "title": "Maximum Initial Lock-in Period and Exit Terms",
+    "summary": "Mandatory lock-in period shall not exceed six (6) months. Following lock-in expiration, tenant may terminate the lease upon providing standard 60-day written notice without penalty, forfeiture, or accelerated rent.",
+    "standard_terms": "The mandatory initial lock-in period during which neither party may terminate for convenience shall not exceed six (6) calendar months from the lease commencement date. Following the expiration of said 6-month period, Tenant shall have the right to terminate the lease at any time by providing sixty (60) days' prior written notice. No punitive liquidated damages, penalties, or accelerated future rent obligations shall apply upon such post-lock-in termination.",
+    "acceptable_range": "Lock-in period <= 6 months; post-lock-in exit permitted with standard 60-day notice; zero penalty/accelerated rent.",
+    "departure_indicators": [
+      "Lock-in period exceeding 6 months (e.g., 12, 24, or 36 months)",
+      "Liquidated damages requiring payment of all remaining rent through the term upon early exit",
+      "Forfeiture of security deposit as automatic penalty for early termination post-lock-in",
+      "Unilateral landlord-only lock-in waiver rights"
+    ],
+    "silence_risk": "Silence regarding lock-in duration or early termination terms implies the tenant is bound for the full multi-year lease duration without exit rights.",
+    "standard_clause_text": "The initial lock-in period shall be six (6) months from the Commencement Date. After the expiration of the lock-in period, Tenant may terminate this Lease for convenience by giving Landlord not less than sixty (60) days' prior written notice, with no early termination penalty or accelerated rent liability beyond rent accrued through the effective termination date."
+  },
+  {
+    "id": "SP-7",
+    "category": "Termination and Default",
+    "title": "Notice and Cure Periods for Default and Termination",
+    "summary": "Tenant must receive at least thirty (30) days' written notice to cure monetary defaults, and at least forty-five (45) days' written notice to cure non-monetary defaults prior to any landlord termination action. Immediate forfeiture or lockout is prohibited.",
+    "standard_terms": "Prior to exercising any right of termination or re-entry for alleged default, Landlord shall provide Tenant with formal written notice specifying the default. For monetary defaults (failure to pay rent), Tenant shall have a minimum cure period of thirty (30) calendar days from receipt of notice. For non-monetary defaults (covenant breaches), Tenant shall have a minimum cure period of forty-five (45) calendar days, or such longer period as reasonably necessary if Tenant is diligently pursuing cure. Immediate forfeiture, lockout, or notice periods under 30 days are strictly prohibited.",
+    "acceptable_range": "Monetary cure >= 30 days; non-monetary cure >= 45 days; written notice required; no immediate lockout.",
+    "departure_indicators": [
+      "Monetary cure periods shorter than 30 days (e.g., 3, 5, 10, or 15 days)",
+      "Non-monetary cure periods shorter than 45 days",
+      "Landlord right of immediate lockout or lease forfeiture without cure opportunity",
+      "Waiver of formal written default notice",
+      "Cross-default clauses tying lease to unrelated commercial transactions"
+    ],
+    "silence_risk": "Silence regarding default notice and cure periods exposes tenant to immediate statutory eviction proceedings or summary lease forfeiture for minor payment or administrative oversights.",
+    "standard_clause_text": "In the event of any alleged monetary default by Tenant, Landlord shall deliver written notice and Tenant shall have thirty (30) calendar days from receipt to cure such default. In the event of any non-monetary default, Tenant shall have forty-five (45) calendar days from receipt of written notice to cure. Landlord may not terminate this Lease or exercise legal remedies unless Tenant fails to cure within the applicable notice period."
+  },
+  {
+    "id": "SP-8",
+    "category": "Alterations and Improvements",
+    "title": "Tenant Alterations and Cosmetic Improvements",
+    "summary": "Tenant is permitted to make non-structural interior alterations, cosmetic improvements, cabling, and branding up to $10,000 without prior landlord consent. Structural alterations require reasonable consent. No mandatory bare-shell restoration charges at lease end.",
+    "standard_terms": "Tenant shall be entitled to carry out non-structural interior alterations, minor architectural modifications, paint and floor coverings, communication and IT cabling, and corporate branding signage costing up to $10,000 in the aggregate without prior approval or fees from Landlord. Structural alterations shall require Landlord's prior written consent, which shall not be unreasonably withheld or delayed. At the end of the term, Tenant shall not be obligated to restore alterations or remove cabling unless Landlord expressly stipulated such requirement in writing at the time of installation.",
+    "acceptable_range": "Non-structural alterations <= $10,000 permitted without consent; no arbitrary review fees; no bare-shell restoration requirement unless stipulated at approval.",
+    "departure_indicators": [
+      "Prior landlord approval mandated for all minor non-structural cosmetic alterations",
+      "Review fees or administrative charges imposed for reviewing alteration requests",
+      "Mandatory bare-shell reinstatement requiring removal of all improvements and finishes at tenant expense",
+      "Landlord ownership of tenant's proprietary equipment, cabling, or trade fixtures"
+    ],
+    "silence_risk": "Silence regarding alterations enables landlords to claim unauthorized modification, demand immediate removal of fit-outs, or impose extortionate restoration charges upon vacating.",
+    "standard_clause_text": "Tenant may perform non-structural interior alterations, cosmetic improvements, partitioning, and cabling costing up to $10,000 without Landlord's prior consent. Structural alterations shall require Landlord's prior written consent, not to be unreasonably withheld or delayed. Upon surrender, Tenant shall have no duty to restore non-structural improvements unless Landlord specifically conditioned its approval upon such removal."
+  }
+]
