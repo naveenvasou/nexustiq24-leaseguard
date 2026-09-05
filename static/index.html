@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeaseGuard | Legal Operations Review Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+          ⚖️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xl font-bold tracking-tight text-slate-900">LeaseGuard</span>
+            <span class="px-2 py-0.5 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full border border-indigo-200">Track 5</span>
+          </div>
+          <p class="text-xs text-slate-500">Legal Operations Desk • Lease Agreement Review Assistant</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:flex items-center space-x-2 text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-md border border-slate-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Engine: <strong class="text-slate-800">gemini-2.5-flash-lite</strong></span>
+          <span class="text-slate-300">|</span>
+          <span>Embeddings: <strong class="text-slate-800">embedding-001</strong></span>
+        </div>
+        <button onclick="openPositionsModal()" class="text-sm px-3 py-1.5 font-medium text-slate-700 hover:text-indigo-600 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center space-x-1.5 shadow-sm">
+          <span>📋 Standard Positions (SP-1–8)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Hero / Intro Banner -->
+    <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+      <div class="relative z-10 max-w-3xl">
+        <span class="px-2.5 py-1 text-xs font-medium bg-indigo-500/30 text-indigo-200 rounded-md border border-indigo-400/30 mb-3 inline-block">
+          Autonomous Contract Compliance Review
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
+          Clause-by-Clause Lease Auditing Against Company Standard Positions
+        </h1>
+        <p class="text-sm sm:text-base text-indigo-100 leading-relaxed mb-4">
+          LeaseGuard parses incoming lease agreements, vector-retrieves corresponding company standard positions (SP-1 through SP-8), flags departures with strict citation, and detects silence when mandatory protective terms are missing.
+        </p>
+        <div class="flex flex-wrap gap-2 text-xs text-indigo-200">
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-1 Rent Escalation</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-2 Security Deposit</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-3 Notice Period</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-4 Maintenance</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-5 Subletting</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-6 Lock-in</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-7 Default & Cure</span>
+          <span class="bg-white/10 px-2.5 py-1 rounded">✓ SP-8 Alterations</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input and Document Controls -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div>
+          <h2 class="text-lg font-semibold text-slate-900">1. Select Lease Agreement for Audit</h2>
+          <p class="text-xs text-slate-500">Choose one of the evaluated test agreements or paste your own document below.</p>
+        </div>
+        <!-- Sample Loaders -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-medium text-slate-500 mr-1">Load Test Case:</span>
+          <button onclick="loadSample(0)" id="sample-btn-0" class="text-xs font-medium px-3 py-1.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition-colors shadow-xs">
+            🟢 Compliant (Clean)
+          </button>
+          <button onclick="loadSample(1)" id="sample-btn-1" class="text-xs font-medium px-3 py-1.5 rounded-lg border border-rose-300 bg-rose-50 text-rose-800 hover:bg-rose-100 transition-colors shadow-xs">
+            🔴 Departures (8 Issues)
+          </button>
+          <button onclick="loadSample(2)" id="sample-btn-2" class="text-xs font-medium px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100 transition-colors shadow-xs">
+            🟠 Silent (Missing Terms)
+          </button>
+        </div>
+      </div>
+
+      <!-- Agreement Title and File Upload -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2">
+          <label class="block text-xs font-medium text-slate-700 mb-1">Agreement Document Title</label>
+          <input type="text" id="agreement-title" placeholder="e.g. Commercial Lease Agreement - Suite 400" value="Commercial Lease Agreement" class="w-full text-sm px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 mb-1">Or Upload Document (.txt, .md)</label>
+          <input type="file" id="file-input" accept=".txt,.md" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+        </div>
+      </div>
+
+      <!-- Agreement Textarea -->
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-xs font-medium text-slate-700">Lease Agreement Text (Numbered Clauses)</label>
+          <span id="char-count" class="text-xs text-slate-400">0 characters</span>
+        </div>
+        <textarea id="agreement-text" rows="12" placeholder="Paste full lease agreement text here (e.g. Clause 1: Base Rent... Clause 2: Security Deposit...)" class="w-full text-xs sm:text-sm font-mono p-3.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none leading-relaxed bg-slate-50/50"></textarea>
+      </div>
+
+      <!-- Audit Trigger Action -->
+      <div class="flex items-center justify-between pt-2">
+        <button onclick="clearText()" class="text-xs text-slate-500 hover:text-slate-800 font-medium">Clear Text</button>
+        <button id="run-audit-btn" onclick="executeAudit()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-medium text-sm rounded-lg shadow-md hover:shadow transition-all flex items-center space-x-2">
+          <span id="btn-spinner" class="hidden animate-spin">⚙️</span>
+          <span id="btn-text">Run Legal Review Audit</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Review Results Section (Hidden until analyzed) -->
+    <div id="results-container" class="hidden space-y-6">
+
+      <!-- Executive Verdict Header -->
+      <div id="verdict-banner" class="rounded-xl p-6 border shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-all">
+        <div class="flex items-start space-x-4">
+          <div id="verdict-icon" class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm shrink-0">
+            <!-- Dynamic Icon -->
+          </div>
+          <div>
+            <div class="flex items-center space-x-3 mb-1">
+              <span id="verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                <!-- Dynamic Verdict -->
+              </span>
+              <span id="report-title" class="text-sm font-semibold text-slate-700"></span>
+            </div>
+            <p id="executive-summary-text" class="text-sm text-slate-700 leading-relaxed max-w-3xl"></p>
+          </div>
+        </div>
+
+        <!-- Metrics Overview Counters -->
+        <div class="flex items-center gap-3 shrink-0 self-stretch md:self-auto justify-around bg-white/70 p-3 rounded-lg border border-slate-200/60 shadow-xs">
+          <div class="text-center px-3">
+            <span class="block text-xl font-bold text-slate-800" id="count-analyzed">0</span>
+            <span class="text-xs text-slate-500">Clauses</span>
+          </div>
+          <div class="h-8 w-px bg-slate-200"></div>
+          <div class="text-center px-3">
+            <span class="block text-xl font-bold text-emerald-600" id="count-matches">0</span>
+            <span class="text-xs text-emerald-600 font-medium">Matches</span>
+          </div>
+          <div class="h-8 w-px bg-slate-200"></div>
+          <div class="text-center px-3">
+            <span class="block text-xl font-bold text-rose-600" id="count-departures">0</span>
+            <span class="text-xs text-rose-600 font-medium">Departures</span>
+          </div>
+          <div class="h-8 w-px bg-slate-200"></div>
+          <div class="text-center px-3">
+            <span class="block text-xl font-bold text-amber-600" id="count-missing">0</span>
+            <span class="text-xs text-amber-600 font-medium">Missing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Actions Bar -->
+      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-lg px-4 py-2.5 shadow-xs">
+        <div class="flex items-center space-x-2 text-xs text-slate-600 font-medium">
+          <span>Filter Findings:</span>
+          <button onclick="filterFindings('all')" id="tab-all" class="px-2.5 py-1 rounded-md bg-slate-900 text-white">All (<span id="tab-all-count">0</span>)</button>
+          <button onclick="filterFindings('departures')" id="tab-departures" class="px-2.5 py-1 rounded-md hover:bg-slate-100 text-slate-600">Departures Only (<span id="tab-dep-count">0</span>)</button>
+          <button onclick="filterFindings('matches')" id="tab-matches" class="px-2.5 py-1 rounded-md hover:bg-slate-100 text-slate-600">Matches Only (<span id="tab-match-count">0</span>)</button>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="downloadMarkdownReport()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium flex items-center space-x-1 shadow-xs">
+            <span>📥 Export Memorandum (.md)</span>
+          </button>
+          <button onclick="downloadJsonReport()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium flex items-center space-x-1 shadow-xs">
+            <span>💾 Export JSON</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Missing Clauses / Silence Findings (Shown if missing_count > 0) -->
+      <div id="silence-section" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center space-x-2 text-amber-900">
+          <span class="text-xl">⚠️</span>
+          <h3 class="font-bold text-base">Silence Findings: Missing Company Standard Positions</h3>
+        </div>
+        <p class="text-xs text-amber-800 leading-relaxed">
+          Silence in a lease agreement is an actionable finding. The following mandatory standard positions were omitted from the agreement, exposing the company to unmitigated risk:
+        </p>
+        <div id="missing-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Missing cards injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Clause-by-Clause Findings Cards -->
+      <div class="space-y-4">
+        <h3 class="text-base font-semibold text-slate-900 flex items-center justify-between">
+          <span>Clause-by-Clause Compliance Breakdown</span>
+          <span class="text-xs font-normal text-slate-500">Checked against Standard Positions SP-1 to SP-8</span>
+        </h3>
+        <div id="clause-cards-container" class="space-y-4">
+          <!-- Dynamically populated cards -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Standard Positions Modal Drawer -->
+  <div id="positions-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 rounded-t-2xl">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">Company Standard Legal Positions (SP-1 through SP-8)</h3>
+          <p class="text-xs text-slate-500">Apex Property Management Legal Desk Official Acceptance Criteria</p>
+        </div>
+        <button onclick="closePositionsModal()" class="w-8 h-8 rounded-lg hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-lg">✕</button>
+      </div>
+      <div id="positions-list" class="p-6 overflow-y-auto space-y-4 text-xs">
+        <!-- Dynamically loaded positions -->
+      </div>
+      <div class="p-4 border-t border-slate-100 flex justify-end bg-slate-50/50 rounded-b-2xl">
+        <button onclick="closePositionsModal()" class="px-4 py-2 bg-slate-900 text-white rounded-lg font-medium text-xs">Close Handbook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div>
+        <strong>LeaseGuard</strong> • GenAI Hackathon Track 5: Legal Operations Submission
+      </div>
+      <div class="flex items-center space-x-4">
+        <span>Model: Gemini 2.5 Flash Lite</span>
+        <span>•</span>
+        <a href="https://github.com/naveenvasou/nexustiq24-leaseguard" target="_blank" class="text-indigo-600 hover:underline">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentSamples = [];
+    let standardPositions = [];
+    let currentReport = null;
+    let activeFilter = 'all';
+
+    // Fetch initial samples and standard positions
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const [resSamples, resPos] = await Promise.all([
+          fetch('/api/samples').then(r => r.json()),
+          fetch('/api/standard-positions').then(r => r.json())
+        ]);
+        currentSamples = resSamples;
+        standardPositions = resPos;
+
+        // Auto-load sample 0 (Compliant) initially for instant demonstration
+        if (currentSamples.length > 0) {
+          loadSample(0);
+        }
+      } catch (err) {
+        console.error("Initialization error:", err);
+      }
+
+      // Track char count
+      const textarea = document.getElementById('agreement-text');
+      textarea.addEventListener('input', () => {
+        document.getElementById('char-count').innerText = `${textarea.value.length.toLocaleString()} characters`;
+      });
+
+      // File upload handler
+      document.getElementById('file-input').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          document.getElementById('agreement-text').value = event.target.result;
+          document.getElementById('agreement-title').value = file.name.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+          document.getElementById('char-count').innerText = `${event.target.result.length.toLocaleString()} characters`;
+        };
+        reader.readAsText(file);
+      });
+    });
+
+    function loadSample(index) {
+      if (!currentSamples[index]) return;
+      const sample = currentSamples[index];
+      document.getElementById('agreement-title').value = sample.title;
+      document.getElementById('agreement-text').value = sample.content;
+      document.getElementById('char-count').innerText = `${sample.content.length.toLocaleString()} characters`;
+
+      // Highlight selected sample button
+      [0, 1, 2].forEach(i => {
+        const btn = document.getElementById(`sample-btn-0`);
+        const b = document.getElementById(`sample-btn-${i}`);
+        if (b) {
+          if (i === index) {
+            b.classList.add('ring-2', 'ring-indigo-600', 'ring-offset-1');
+          } else {
+            b.classList.remove('ring-2', 'ring-indigo-600', 'ring-offset-1');
+          }
+        }
+      });
+    }
+
+    function clearText() {
+      document.getElementById('agreement-text').value = '';
+      document.getElementById('agreement-title').value = 'Commercial Lease Agreement';
+      document.getElementById('char-count').innerText = '0 characters';
+      document.getElementById('results-container').classList.add('hidden');
+    }
+
+    async function executeAudit() {
+      const text = document.getElementById('agreement-text').value.trim();
+      const title = document.getElementById('agreement-title').value.trim() || "Commercial Lease Agreement";
+      if (!text) {
+        alert("Please provide lease agreement text or load a test sample.");
+        return;
+      }
+
+      const runBtn = document.getElementById('run-audit-btn');
+      const spinner = document.getElementById('btn-spinner');
+      const btnText = document.getElementById('btn-text');
+
+      runBtn.disabled = true;
+      spinner.classList.remove('hidden');
+      btnText.innerText = "Analyzing Clauses...";
+
+      try {
+        const response = await fetch('/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agreement_text: text, agreement_title: title })
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.detail || "Analysis request failed.");
+        }
+
+        currentReport = await response.json();
+        renderReport(currentReport);
+      } catch (err) {
+        alert(`Audit Error: ${err.message}`);
+      } finally {
+        runBtn.disabled = false;
+        spinner.classList.add('hidden');
+        btnText.innerText = "Run Legal Review Audit";
+      }
+    }
+
+    function renderReport(report) {
+      document.getElementById('results-container').classList.remove('hidden');
+      document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+
+      // Verdict Banner
+      const banner = document.getElementById('verdict-banner');
+      const icon = document.getElementById('verdict-icon');
+      const badge = document.getElementById('verdict-badge');
+      const summary = document.getElementById('executive-summary-text');
+      const rTitle = document.getElementById('report-title');
+
+      rTitle.innerText = report.agreement_title;
+      summary.innerText = report.executive_summary;
+
+      document.getElementById('count-analyzed').innerText = report.total_clauses_analyzed;
+      document.getElementById('count-matches').innerText = report.matches_count;
+      document.getElementById('count-departures').innerText = report.departures_count;
+      document.getElementById('count-missing').innerText = report.missing_count;
+
+      document.getElementById('tab-all-count').innerText = report.clause_findings.length;
+      document.getElementById('tab-dep-count').innerText = report.departures_count;
+      document.getElementById('tab-match-count').innerText = report.matches_count;
+
+      banner.className = "rounded-xl p-6 border shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-all ";
+      if (report.overall_status === "COMPLIANT") {
+        banner.classList.add("bg-emerald-50", "border-emerald-200");
+        icon.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm shrink-0 bg-emerald-600 text-white";
+        icon.innerText = "🛡️";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-600 text-white";
+        badge.innerText = "COMPLIANT (CLEAN)";
+      } else if (report.overall_status === "NON_COMPLIANT") {
+        banner.classList.add("bg-rose-50", "border-rose-200");
+        icon.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm shrink-0 bg-rose-600 text-white";
+        icon.innerText = "⚠️";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-600 text-white";
+        badge.innerText = "NON-COMPLIANT (DEPARTURES FOUND)";
+      } else {
+        banner.classList.add("bg-amber-50", "border-amber-200");
+        icon.className = "w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm shrink-0 bg-amber-600 text-white";
+        icon.innerText = "⚡";
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-600 text-white";
+        badge.innerText = "CAUTION (MISSING TERMS)";
+      }
+
+      // Silence Section
+      const silenceSection = document.getElementById('silence-section');
+      const missingContainer = document.getElementById('missing-cards-container');
+      missingContainer.innerHTML = '';
+
+      if (report.missing_findings && report.missing_findings.length > 0) {
+        silenceSection.classList.remove('hidden');
+        report.missing_findings.forEach(m => {
+          const card = document.createElement('div');
+          card.className = "bg-white p-4 rounded-lg border border-amber-300 shadow-xs space-y-2.5";
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">${m.standard_position_id}: ${m.category}</span>
+              <span class="px-2 py-0.5 rounded text-xs font-semibold bg-rose-100 text-rose-800">Risk: ${m.risk_level}</span>
+            </div>
+            <p class="text-xs font-medium text-slate-800">${m.standard_position_title}</p>
+            <p class="text-xs text-amber-900/90 leading-relaxed font-normal">${m.silence_risk}</p>
+            <div class="pt-2 border-t border-amber-100">
+              <span class="text-xs font-semibold text-slate-700 block mb-1">Mandatory Standard Clause to Insert:</span>
+              <pre class="text-xs bg-slate-900 text-emerald-300 p-2.5 rounded overflow-x-auto whitespace-pre-wrap">${m.recommended_clause_to_insert}</pre>
+            </div>
+          `;
+          missingContainer.appendChild(card);
+        });
+      } else {
+        silenceSection.classList.add('hidden');
+      }
+
+      // Render Clause Findings
+      renderClauseCards();
+    }
+
+    function filterFindings(filterType) {
+      activeFilter = filterType;
+      ['all', 'departures', 'matches'].forEach(f => {
+        const tab = document.getElementById(`tab-${f}`);
+        if (f === filterType) {
+          tab.className = "px-2.5 py-1 rounded-md bg-slate-900 text-white";
+        } else {
+          tab.className = "px-2.5 py-1 rounded-md hover:bg-slate-100 text-slate-600";
+        }
+      });
+      renderClauseCards();
+    }
+
+    function renderClauseCards() {
+      if (!currentReport) return;
+      const container = document.getElementById('clause-cards-container');
+      container.innerHTML = '';
+
+      const list = currentReport.clause_findings.filter(f => {
+        if (activeFilter === 'departures') return f.status === 'DEPARTS';
+        if (activeFilter === 'matches') return f.status === 'MATCHES';
+        return true;
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center bg-white rounded-xl border border-slate-200 text-slate-500 text-sm">No clauses matching the current filter.</div>`;
+        return;
+      }
+
+      list.forEach(f => {
+        const isMatch = f.status === 'MATCHES';
+        const card = document.createElement('div');
+        card.className = `bg-white border rounded-xl shadow-xs overflow-hidden transition-all ${
+          isMatch ? 'border-slate-200 hover:border-slate-300' : 'border-rose-200 hover:border-rose-300 bg-rose-50/20'
+        }`;
+
+        card.innerHTML = `
+          <div class="p-5 space-y-4">
+            <!-- Header Row -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div class="flex items-center space-x-3">
+                <span class="w-8 h-8 rounded-lg ${isMatch ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'} flex items-center justify-center font-bold text-xs shrink-0">
+                  ${isMatch ? '✓' : '✗'}
+                </span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900">Clause ${f.clause_number}: ${f.clause_title}</h4>
+                  <div class="flex items-center space-x-2 mt-0.5">
+                    <span class="text-xs text-slate-500">Checked against:</span>
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">
+                      [${f.standard_position_id}] ${f.standard_position_title}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 shrink-0">
+                ${!isMatch ? `<span class="px-2 py-0.5 text-xs font-semibold rounded bg-rose-100 text-rose-800 border border-rose-200">Risk: ${f.risk_level}</span>` : ''}
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+                  isMatch ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-600 text-white'
+                }">
+                  ${f.status}
+                </span>
+              </div>
+            </div>
+
+            <!-- Agreement Clause Text -->
+            <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200/80">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Agreement Text</span>
+              <p class="text-xs font-mono text-slate-800 whitespace-pre-wrap leading-relaxed">${f.clause_text}</p>
+            </div>
+
+            <!-- Finding & Departure Analysis -->
+            <div class="text-xs space-y-2">
+              <div class="flex items-start space-x-2">
+                <span class="font-semibold text-slate-700 shrink-0">Finding:</span>
+                <span class="text-slate-800 leading-relaxed">${f.finding_summary}</span>
+              </div>
+
+              ${f.departure_details ? `
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-900 leading-relaxed">
+                  <strong class="block text-rose-950 mb-1">⚠️ Departure Analysis:</strong>
+                  ${f.departure_details}
+                </div>
+              ` : ''}
+
+              ${f.recommended_amendment ? `
+                <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
+                  <span class="font-semibold text-indigo-950 block mb-1">✏️ Recommended Amendment / Redline:</span>
+                  <pre class="text-xs bg-slate-900 text-indigo-200 p-2.5 rounded overflow-x-auto whitespace-pre-wrap">${f.recommended_amendment}</pre>
+                </div>
+              ` : ''}
+            </div>
+
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function downloadMarkdownReport() {
+      if (!currentReport) return;
+      const text = document.getElementById('agreement-text').value;
+      const title = document.getElementById('agreement-title').value || "Lease Agreement";
+
+      const res = await fetch('/api/report/markdown', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agreement_text: text, agreement_title: title })
+      });
+      const md = await res.text();
+
+      const blob = new Blob([md], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `LeaseGuard_Review_${title.replace(/\s+/g, '_')}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadJsonReport() {
+      if (!currentReport) return;
+      const blob = new Blob([JSON.stringify(currentReport, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `LeaseGuard_Findings_${currentReport.agreement_title.replace(/\s+/g, '_')}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function openPositionsModal() {
+      const container = document.getElementById('positions-list');
+      container.innerHTML = '';
+      standardPositions.forEach(p => {
+        const item = document.createElement('div');
+        item.className = "p-4 border border-slate-200 rounded-xl bg-slate-50/50 space-y-2";
+        item.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded bg-indigo-100 text-indigo-800 font-bold text-xs">${p.id}: ${p.category}</span>
+            <span class="text-xs text-slate-500 font-medium">Range: ${p.acceptable_range}</span>
+          </div>
+          <h4 class="font-bold text-sm text-slate-900">${p.title}</h4>
+          <p class="text-slate-700 leading-relaxed">${p.summary}</p>
+          <div class="bg-white p-2.5 rounded border border-slate-200">
+            <strong class="text-slate-600 block mb-1">Full Requirement:</strong>
+            <p class="text-slate-600 leading-relaxed">${p.standard_terms}</p>
+          </div>
+          <div class="text-amber-800 bg-amber-50 p-2 rounded border border-amber-200">
+            <strong>Silence Risk:</strong> ${p.silence_risk}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      document.getElementById('positions-modal').classList.remove('hidden');
+    }
+
+    function closePositionsModal() {
+      document.getElementById('positions-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
